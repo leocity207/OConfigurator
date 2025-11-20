@@ -1,0 +1,13 @@
+#ifndef LOCALS_H
+#define LOCALS_H
+
+#include <filesystem>
+
+namespace Local 
+{
+	inline const char* GET_COMMIT_HASH() {return "${GIT_COMMIT_HASH}"; };
+	inline const char* GET_VERSION() {return "${${project_name}_VERSION_MAJOR}.${${project_name}_VERSION_MINOR}"; };
+	inline std::filesystem::path ROOT_PATH() {return "${CMAKE_CURRENT_LIST_DIR}/";};
+} // Local
+
+#endif //LOCALS_H

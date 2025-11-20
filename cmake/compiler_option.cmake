@@ -1,0 +1,7 @@
+if (MSVC)
+	add_compile_options(/W4 /utf-8)
+	add_compile_definitions(_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
+	add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
+else()
+	add_compile_options(-Wall -Wextra -pedantic -Og)
+endif()

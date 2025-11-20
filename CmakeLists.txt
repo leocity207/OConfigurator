@@ -15,9 +15,6 @@ include(cmake/rapidjson.cmake)
 #---------------------
 # subdirectory project
 add_subdirectory(src/configuration)
-add_subdirectory(src/orientation)
-add_subdirectory(src/utils)
-
 
 #------
 # tests

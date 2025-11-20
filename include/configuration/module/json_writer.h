@@ -1,5 +1,5 @@
-#ifndef CONFIGURATION_MODULE_WRITER_H
-#define CONFIGURATION_MODULE_WRITER_H
+#ifndef CONFIGURATION_MODULE_JSON_WRITER_H
+#define CONFIGURATION_MODULE_JSON_WRITER_H
 
 #include <string>
 #include <utility>
@@ -11,7 +11,7 @@ namespace O::Configuration::Module
 {
 
 	template<class Derived, class Data>
-	struct Writer
+	struct JSON_Writer
 	{
 		static_assert(std::is_base_of_v<Writer<Derived>, Derived>,"module configuration must inherit Configuration::Module<Derived>");
 
@@ -28,4 +28,4 @@ namespace O::Configuration::Module
 
 } // namespace O::Configuration::Module
 
-#endif // CONFIGURATION_MODULE_WRITER_H
+#endif // CONFIGURATION_MODULE_JSON_WRITER_H

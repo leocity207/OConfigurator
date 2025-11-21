@@ -13,14 +13,13 @@ namespace O::Configuration::Module
 	template<class Derived, class Data>
 	struct JSON_Writer
 	{
-		static_assert(std::is_base_of_v<Writer<Derived>, Derived>,"module configuration must inherit Configuration::Module<Derived>");
-
-		rapidjson::Value To_Json(rapidjson::Document::AllocatorType& allocator, Data& data) const
+		template<class RapidJSON_Writer>
+		void To_JSON(RapidJSON_Writer& writer, const Data& data) const
 		{
-			return static_cast<const Derived*>(this)->To_Json(allocator, data);
+			static_cast<const Derived*>(this)->To_JSON(writer, data);
 		}
 
-		static constexpr const char* key() noexcept 
+		static constexpr const char* Key() noexcept 
 		{ 
 			return Derived::Key();
 		}

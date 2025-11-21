@@ -9,16 +9,13 @@
 
 #include "include/configuration/module/traits.h"
 
+#include "include/tuple_helper.h"
+
 #include <rapidjson/document.h>
 #include <rapidjson/filereadstream.h>
 #include <cstdio>
 #include <memory>
 
-template<class Tuple, class F>
-void For_Each_In_Tuple(Tuple& t, F&& f)
-{
-	std::apply([&](auto&... e) {(f(e), ...);}, t);
-}
 
 template<class... Data_Modules>
 O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_Json_Document(const rapidjson::Document& doc)
@@ -33,7 +30,7 @@ O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_Json
 
 	bool ok = true;
 
-	For_Each_In_Tuple(container.modules, [&](auto& module_part)
+	O::For_Each_In_Tuple(container.modules, [&](auto& module_part)
 		{
 			if (!ok) return;
 

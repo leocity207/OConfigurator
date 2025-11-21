@@ -43,6 +43,5 @@
 out/*
 .vs/*
 
-include/local.h
 .vscode/*
-
+include/locals.h

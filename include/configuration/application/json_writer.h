@@ -3,6 +3,7 @@
 
 #include <tuple>
 #include <filesystem>
+#include <optional>
 #include "include/expected.h"
 
 
@@ -10,14 +11,19 @@
 
 namespace O::Configuration::Application
 {
-	template<class... Data_Modules>
-	Expected_Builder<Data_Modules...> Build_From_JSON_File(std::filesystem::path& path);
+	enum class Write_Error {
+		FILE_OPEN_FAILED,
+		FILE_WRITE_FAILED
+	};
 
 	template<class... Data_Modules>
-	Expected_Builder<Data_Modules...> Build_From_JSON_String(std::string_view data);
+	std::optional<Write_Error> Write_As_JSON_File(const Container<Data_Modules...>& data, const std::filesystem::path& filepath);
+
+	template<class... Data_Modules>
+	std::string Write_As_JSON_String(const O::Configuration::Application::Container<Data_Modules...>& datas);
 
 } // namespace O::Configuration::Application
 
-#include "json_builder.hpp"
+#include "json_writer.hpp"
 
 #endif //CONFIGURATION_APPLICATION_JSON_WRITER_H

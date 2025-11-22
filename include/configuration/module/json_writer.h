@@ -1,9 +1,12 @@
 #ifndef CONFIGURATION_MODULE_JSON_WRITER_H
 #define CONFIGURATION_MODULE_JSON_WRITER_H
 
+// STL
 #include <string>
 #include <utility>
 #include <type_traits>
+
+// RAPIDJSON
 #include <rapidjson/document.h>
 
 

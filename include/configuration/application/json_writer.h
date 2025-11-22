@@ -1,12 +1,15 @@
 #ifndef CONFIGURATION_APPLICATION_JSON_WRITER_H
 #define CONFIGURATION_APPLICATION_JSON_WRITER_H
 
+// STL
 #include <tuple>
 #include <filesystem>
 #include <optional>
+
+// UTILS
 #include "include/expected.h"
 
-
+// APPLICATION
 #include "container.h"
 
 namespace O::Configuration::Application

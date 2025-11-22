@@ -1,11 +1,15 @@
 #ifndef CONFIGURATION_APPLICATION_JSON_BUILDER_H
 #define CONFIGURATION_APPLICATION_JSON_BUILDER_H
 
+// STL
 #include <tuple>
 #include <filesystem>
+#include <string_view>
+
+// UTILS
 #include "include/expected.h"
 
-
+// APPLICATION
 #include "container.h"
 
 namespace O::Configuration::Application
@@ -52,7 +56,7 @@ namespace O::Configuration::Application
 	 *         On error contains Error (module name and error id).
 	 */
 	template<class... Data_Modules>
-	Expected_Builder<Data_Modules...> Build_From_JSON_File(std::filesystem::path& path);
+	Expected_Builder<Data_Modules...> Build_From_JSON_File(const std::filesystem::path& path);
 
 	/**
 	 * @brief Build the application Container from an in-memory JSON string.

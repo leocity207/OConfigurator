@@ -1,24 +1,28 @@
 ﻿#ifndef CONFIGURATION_APPLICATION_JSON_BUILDER_HPP
 #define CONFIGURATION_APPLICATION_JSON_BUILDER_HPP
 
+// STL
 #include <tuple>
 #include <filesystem>
-
-#include "container.h"
-#include "json_builder.h"
-
-#include "include/configuration/module/traits.h"
-
-#include "include/tuple_helper.h"
-
-#include <rapidjson/document.h>
-#include <rapidjson/filereadstream.h>
 #include <cstdio>
 #include <memory>
 
+// APPLICATION
+#include "container.h"
+#include "json_builder.h"
+
+// MODULE
+#include "include/configuration/module/traits.h"
+
+// UTILS
+#include "include/tuple_helper.h"
+
+// RAPIDJSON
+#include <rapidjson/document.h>
+#include <rapidjson/filereadstream.h>
 
 template<class... Data_Modules>
-O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_Json_Document(const rapidjson::Document& doc)
+O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_JSON_Document(const rapidjson::Document& doc)
 {
 	using namespace O::Configuration::Application;
 
@@ -41,7 +45,7 @@ O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_Json
 			if (!doc.HasMember(key)) return;
 
 			Builder builder;
-			auto opt = builder.Load_From_Json(doc[key]);
+			auto opt = builder.Load_From_JSON(doc[key]);
 
 			if (opt)
 			{
@@ -57,7 +61,7 @@ O::Configuration::Application::Expected_Builder<Data_Modules...> Build_From_Json
 }
 
 template<class... Data_Modules>
-O::Configuration::Application::Expected_Builder<Data_Modules...> O::Configuration::Application::Build_From_JSON_File(std::filesystem::path& path)
+O::Configuration::Application::Expected_Builder<Data_Modules...> O::Configuration::Application::Build_From_JSON_File(const std::filesystem::path& path)
 {
 	FILE* fp = std::fopen(path.generic_string().c_str(), "rb");
 	if (!fp)
@@ -75,7 +79,7 @@ O::Configuration::Application::Expected_Builder<Data_Modules...> O::Configuratio
 	if (!r)
 		return Expected_Builder<Data_Modules...>::Make_Error(Error{ "", static_cast<int>(JSON_PARSING_FAILED) });
 
-	return Build_From_Json_Document<Data_Modules...>(doc);
+	return Build_From_JSON_Document<Data_Modules...>(doc);
 }
 
 
@@ -91,7 +95,7 @@ O::Configuration::Application::Expected_Builder<Data_Modules...> O::Configuratio
 		return Expected_Builder<Data_Modules...>::Make_Error(
 			Error{ "", static_cast<int>(JSON_PARSING_FAILED) });
 
-	return Build_From_Json_Document<Data_Modules...>(doc);
+	return Build_From_JSON_Document<Data_Modules...>(doc);
 }
 
 

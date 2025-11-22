@@ -74,7 +74,7 @@ Module Builder
 
         static constexpr const char* Key() noexcept { return "window"; }
 
-        std::optional<Error> Load_From_Json(const rapidjson::Value& v)
+        std::optional<Error> Load_From_JSON(const rapidjson::Value& v)
         {
             if (!v.IsObject()) return Error::MISSING_WIDTH;
 

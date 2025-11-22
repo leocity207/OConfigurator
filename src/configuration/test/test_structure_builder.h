@@ -14,7 +14,7 @@ enum class Numeric_Error
 
 struct Numeric_Builder : public O::Configuration::Module::JSON_Builder<Numeric_Builder, Numeric, Numeric_Error>
 {
-	std::optional<Numeric_Error> Load_From_Json(const rapidjson::Value& v)
+	std::optional<Numeric_Error> Load_From_JSON(const rapidjson::Value& v)
 	{
 		if (!v.IsObject()) 
 			return Numeric_Error::SHOULD_BE_AND_OBJECT;
@@ -41,7 +41,7 @@ enum class Various_Error
 
 struct Various_Data_Builder : public O::Configuration::Module::JSON_Builder<Various_Data_Builder, Various_Data, Various_Error>
 {
-    std::optional<Various_Error> Load_From_Json(const rapidjson::Value& v)
+    std::optional<Various_Error> Load_From_JSON(const rapidjson::Value& v)
     {
         if (!v.IsObject())
             return Various_Error::SHOULD_BE_AND_OBJECT;

@@ -28,7 +28,7 @@ error enum and thin forwarding to the derived class. The derived builder must
 implement:
 
 - ``static constexpr const char* Key() noexcept`` — the JSON key for the module.
-- ``std::optional<Error> Load_From_Json(const rapidjson::Value& v)`` — parse
+- ``std::optional<Error> Load_From_JSON(const rapidjson::Value& v)`` — parse
   the module JSON and populate the builder's ``data`` member.
 
 
@@ -47,7 +47,7 @@ Example
     {
         static constexpr const char* Key() noexcept { return "mymodule"; }
 
-        std::optional<MyError> Load_From_Json(const rapidjson::Value& v) {
+        std::optional<MyError> Load_From_JSON(const rapidjson::Value& v) {
             // parse 'v' and fill 'this->data'
             return std::nullopt;
         }
@@ -73,7 +73,7 @@ A CRTP helper for module writers. Derived writers must implement:
         static constexpr const char* Key() noexcept { return "mymodule"; }
 
         template<class jsonWriter>
-        void Load_From_Json(const jsonWriter& v,const MyModuleData& data ) {
+        void Load_From_JSON(const jsonWriter& v,const MyModuleData& data ) {
             v.StartObject();
 			v.EndObject();
         }

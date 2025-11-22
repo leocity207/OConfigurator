@@ -14,7 +14,7 @@
 
 using namespace O::Configuration::Application;
 
-static rapidjson::Document ParseJson(const std::string& s) {
+static rapidjson::Document Parse_JSON(const std::string& s) {
 	rapidjson::Document doc;
 	doc.Parse(s.c_str(), s.size());
 	return doc;
@@ -27,7 +27,7 @@ TEST(Writer, Numeric_String)
 	std::get<Numeric>(c.modules).tolerance = 2.5;
 
 	std::string json = Write_As_JSON_String<Numeric>(c);
-	rapidjson::Document doc = ParseJson(json);
+	rapidjson::Document doc = Parse_JSON(json);
 	ASSERT_FALSE(doc.HasParseError());
 	ASSERT_TRUE(doc.IsObject());
 	ASSERT_TRUE(doc.HasMember("numeric"));
@@ -45,7 +45,7 @@ TEST(Writer, Various_Int_String)
 	std::get<Various_Data>(c.modules) = vd;
 
 	std::string json = Write_As_JSON_String<Various_Data>(c);
-	rapidjson::Document doc = ParseJson(json);
+	rapidjson::Document doc = Parse_JSON(json);
 	ASSERT_FALSE(doc.HasParseError());
 	ASSERT_TRUE(doc.IsObject());
 	ASSERT_TRUE(doc.HasMember("various_data"));
@@ -67,7 +67,7 @@ TEST(Writer, Various_Double_String)
 	std::get<Various_Data>(c.modules) = vd;
 
 	std::string json = Write_As_JSON_String<Various_Data>(c);
-	rapidjson::Document doc = ParseJson(json);
+	rapidjson::Document doc = Parse_JSON(json);
 	ASSERT_FALSE(doc.HasParseError());
 	ASSERT_TRUE(doc.IsObject());
 	ASSERT_TRUE(doc.HasMember("various_data"));
@@ -88,7 +88,7 @@ TEST(Writer, Various_Null_String)
 	std::get<Various_Data>(c.modules) = vd;
 
 	std::string json = Write_As_JSON_String<Various_Data>(c);
-	rapidjson::Document doc = ParseJson(json);
+	rapidjson::Document doc = Parse_JSON(json);
 	ASSERT_FALSE(doc.HasParseError());
 	ASSERT_TRUE(doc.IsObject());
 	ASSERT_TRUE(doc.HasMember("various_data"));

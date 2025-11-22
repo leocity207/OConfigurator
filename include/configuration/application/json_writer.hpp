@@ -1,17 +1,21 @@
 #ifndef CONFIGURATION_APPLICATION_JSON_WRITER_HPP
 #define CONFIGURATION_APPLICATION_JSON_WRITER_HPP
 
+// STL
 #include <optional>
 #include <fstream>
 #include <string>
 #include <system_error>
 #include <type_traits>
 
+// APPLICATION
 #include "container.h"
 #include "json_writer.h"
 
+// UTILS
 #include "include/tuple_helper.h"
 
+// RAPIDJSON
 #include <rapidjson/document.h>
 #include <rapidjson/filewritestream.h>
 #include <rapidjson/stringbuffer.h>

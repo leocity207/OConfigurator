@@ -1,5 +1,5 @@
 Application object & class hierarchy
-===================================
+====================================
 
 Overview
 --------
@@ -100,7 +100,7 @@ Node descriptions
 * **Build / Write functions** – high-level entry points that glue everything together.
 
 Common flows (summary)
----------------------
+----------------------
 1. **Parsing a file**: `Build_From_JSON_File` → parse to `rapidjson::Document` → `Build_From_JSON_Document` → iterate modules → for each module: get Builder via `Traits`, call `Load_From_JSON`, on success move data into `Container`, on failure return `Expected_Builder` with `Error`.
 2. **Serializing**: `Write_As_JSON_String/File` → iterate modules → for each module: get Writer via `Traits`, call `To_JSON` to emit JSON.
 

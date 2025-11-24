@@ -1,4 +1,4 @@
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/externals/cmake-sphinx/cmake/Modules")
+include(../cmake/cmake_sphinx.cmake)
 
 find_package(Doxygen)
 find_package(Sphinx)
@@ -13,10 +13,11 @@ IF(Doxygen_FOUND AND Sphinx_FOUND)
 
 
 	sphinx_add_docs(
-		Octoliner_GeoFlow_Sphinx_documentation
+		Oconfigurator_Sphinx_documentation
 		BREATHE_PROJECTS doxygen
 		BUILDER html
 		SOURCE_DIRECTORY source
+		CONFIG_DIRECTORY source
 	)
 else()
 	message("Cannot build documentation since Doxygen Sphinx and breathe cannot be found")

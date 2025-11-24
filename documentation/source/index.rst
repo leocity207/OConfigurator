@@ -1,5 +1,6 @@
 Oconfigurator documentation!
-==========================
+============================
+
 Welcome to the Oconfigurator documentation.
 
 Oconfigurator Is a Small header only c++20 Serializer/Deserializer for configuration into C++ structure for fast exploite.
@@ -15,7 +16,7 @@ Oconfigurator Is a Small header only c++20 Serializer/Deserializer for configura
 	:caption: Architecture
 
 	architecture/overview
-	architecture/guideline
+	architecture/guidelines
 
 .. toctree::
 	:maxdepth: 2

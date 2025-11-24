@@ -18,8 +18,8 @@ The following templates are documented on this page:
    :local:
    :depth: 2
 
-JSON Builder (:cpp:namespace:`O::Configuration::Module`)
--------------------------------------------------------
+JSON Builder (`O::Configuration::Module`)
+--------------------------------------------------------
 
 Short description
 ^^^^^^^^^^^^^^^^^
@@ -32,7 +32,7 @@ implement:
   the module JSON and populate the builder's ``data`` member.
 
 
-.. doxygenclass:: O::Configuration::Module::JSON_Builder<Derived, Data, Error>
+.. doxygenstruct:: O::Configuration::Module::JSON_Builder
     :members:
     :protected-members:
 
@@ -53,8 +53,8 @@ Example
         }
     };
 
-JSON Writer (:cpp:namespace:`O::Configuration::Module`)
-------------------------------------------------------
+JSON Writer (`O::Configuration::Module`)
+-------------------------------------------------------
 
 Short description
 ^^^^^^^^^^^^^^^^^
@@ -79,7 +79,7 @@ A CRTP helper for module writers. Derived writers must implement:
         }
     };
 
-.. doxygenclass:: O::Configuration::Module::JSON_Writer<Derived, Data>
+.. doxygenstruct:: O::Configuration::Module::JSON_Writer
     :members:
     :protected-members:
 
@@ -99,15 +99,15 @@ Example
         }
     };
 
-Traits (:cpp:namespace:`O::Configuration::Module`)
--------------------------------------------------
+Traits (`O::Configuration::Module`)
+--------------------------------------------------
 
 Short description
 ^^^^^^^^^^^^^^^^^
 Specialize ``O::Configuration::Module::Traits<Data>`` for each module data type to
 connect the data type with its corresponding Builder and Writer.
 
-.. doxygenclass:: O::Configuration::Module::Traits<Data>
+.. doxygenstruct:: O::Configuration::Module::Traits
     :members:
     :protected-members:
 

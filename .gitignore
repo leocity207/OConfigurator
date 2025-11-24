@@ -41,7 +41,9 @@
 *.dwo
 
 out/*
+build/*
 .vs/*
 
 .vscode/*
 include/locals.h
+

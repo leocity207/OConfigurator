@@ -14,18 +14,17 @@ author = 'Léo Cluzel'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
+	'breathe',
 	'sphinx.ext.graphviz',
 	'sphinx.ext.autodoc',
+	'sphinx.ext.viewcode',
+    'sphinx.ext.todo',
 	'breathe'
 ]
 pygments_style = 'sphinx'
 
 templates_path = []#['_templates']
 exclude_patterns = []
-
-
-
-
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output

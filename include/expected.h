@@ -1,4 +1,3 @@
-// include/expected.h
 #ifndef INCLUDE_EXPECTED_H
 #define INCLUDE_EXPECTED_H
 
@@ -18,10 +17,13 @@ namespace O
 		using std::runtime_error::runtime_error;
 	};
 
-	// Tag type to construct an error explicitly
+	/// Tag type to construct an error explicitly
 	struct Error_Tag_t { explicit constexpr Error_Tag_t() = default; };
 	inline constexpr Error_Tag_t error_tag{};
 
+	/**
+	* @brief class to reprensent expected value on return
+	*/
 	template<class T, class E>
 	class Expected
 	{

@@ -15,7 +15,7 @@
 #include "include/configuration/module/traits.h"
 
 // UTILS
-#include "include/tuple_helper.h"
+#include "include/utils/tuple_helper.h"
 
 // RAPIDJSON
 #include <rapidjson/document.h>

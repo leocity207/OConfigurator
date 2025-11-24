@@ -9,7 +9,6 @@
 // RAPIDJSON
 #include <rapidjson/document.h>
 
-
 namespace O::Configuration::Module
 {
 
@@ -22,13 +21,10 @@ namespace O::Configuration::Module
 	 * @details
 	 * The Derived type must implement:
 	 * @code
-	 * template<class RapidJSON_Writer>
 	 * void To_JSON(RapidJSON_Writer& writer, const Data& data) const;
 	 * static constexpr const char* Key() noexcept;
 	 * @endcode
 	 *
-	 * The wrapper simply provides a uniform To_JSON call site used by the
-	 * application-level JSON writer which iterates all module writers.
 	 */
 	template<class Derived, class Data>
 	struct JSON_Writer
@@ -36,6 +32,8 @@ namespace O::Configuration::Module
 		/**
 		 * @brief Forwarding adapter that calls the Derived To_JSON implementation.
 		 *
+		 *  you don't need to write down the  "Key" inside the writer as this is already done by the Appllication writer. you can directly start by adding Data value
+		 * 
 		 * @tparam RapidJSON_Writer A RapidJSON writer type (e.g. rapidjson::Writer<...>).
 		 * @param writer The RapidJSON writer to write into.
 		 * @param data   The module data to serialize.
@@ -48,6 +46,8 @@ namespace O::Configuration::Module
 
 		/**
 		 * @brief Return the JSON key used by this module writer.
+		 * 
+		 * The value returned by Key will be the Key found inside the json file for this configuration
 		 */
 		static constexpr const char* Key() noexcept
 		{

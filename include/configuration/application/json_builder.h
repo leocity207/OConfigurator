@@ -28,9 +28,8 @@ namespace O::Configuration::Application
 	/**
 	 * @brief Description of a module-level build failure.
 	 *
-	 * When the builder fails due to a module parse error the Error struct
-	 * indicates the module (module_name) and the numeric error code returned
-	 * by the module's builder (error_id).
+	 * When the builder fails due to a module parse error the Error struct indicates the module (module_name) and the numeric error code returned by the module's builder (error_id).
+	 * We ensure that the error_ID can be casted back into a Module_Error for more information if needed.
 	 */
 	struct Error {
 		std::string_view module_name; /**< Name/key of the module that failed (empty for document-level errors). */
@@ -41,8 +40,7 @@ namespace O::Configuration::Application
 	 * @brief Alias describing the expected return type of Build_From_JSON_* functions.
 	 *
 	 * This is an alias for O::Expected<Container<Data_Modules...>, Error>.
-	 * On success the Expected contains the assembled Container; on failure it
-	 * contains an Error describing the failure.
+	 * On success the Expected contains the assembled Container; on failure it contains an Error describing the failure.
 	 */
 	template<class... Data_Modules>
 	using Expected_Builder = O::Expected<O::Configuration::Application::Container<Data_Modules...>, Error>;

@@ -126,12 +126,3 @@ It is particularly visible in JSON builder/writer code.
 * No run-time overhead (fully optimized away).  
 * Deterministic evaluation order (left-to-right).  
 * Const/volatile correctness based on the provided tuple.  
-
-
-Summary
--------
-* **Expected** provides simple, exception-free error handling.  
-* **For_Each_In_Tuple** provides clean iteration over heterogeneous tuples.  
-
-Both utilities are intentionally small, self-contained, and designed to support
-the configuration system without introducing heavy dependencies.

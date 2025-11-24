@@ -13,8 +13,8 @@ namespace O::Configuration::Module
 	 * - `using Builder = <builder type>`; // builder must be compatible with JSON_Builder
 	 * - `using Writer  = <writer type>`;  // writer must be compatible with JSON_Writer
 	 *
-	 * The application-level code relies on these aliases to obtain the
-	 * appropriate parser/serializer for each module stored in the container.
+	 * The Application relies on these aliases to obtain the appropriate parser/serializer for each module knowing the base class.
+	 * It create an indirection toward Configuration_Data <-> Configuration parser/serializer
 	 */
 	template<class Data>
 	struct Traits;

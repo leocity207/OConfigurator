@@ -2,8 +2,7 @@ Oconfigurator documentation!
 ==========================
 Welcome to the Oconfigurator documentation.
 
-Oconfigurator Is a Small header only Serializer/Deserializer for configuration into C++ structure for fast exploite.
-
+Oconfigurator Is a Small header only c++20 Serializer/Deserializer for configuration into C++ structure for fast exploite.
 
 .. toctree::
 	:maxdepth: 2
@@ -25,19 +24,3 @@ Oconfigurator Is a Small header only Serializer/Deserializer for configuration i
 	cplusplus/application
 	cplusplus/module
 	cplusplus/utils
-
-.. toctree::
-	:maxdepth: 2
-	:caption: Python
-
-	python/geojson/index
-	python/io/index
-	python/filter/index
-
-.. toctree::
-	:maxdepth: 2
-	:caption: Javascript
-
-	javascript/geojson/index
-	javascript/io/index
-	javascript/filter/index

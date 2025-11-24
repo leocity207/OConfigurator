@@ -118,7 +118,7 @@ namespace O
 			return Error_Ptr();
 		}
 
-		const E& error() const &
+		const E& Error() const &
 		{
 			if (!Has_Error()) throw bad_expected_access("no error");
 			return Error_Ptr();

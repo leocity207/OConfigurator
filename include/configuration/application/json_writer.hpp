@@ -21,10 +21,6 @@
 #include <rapidjson/stringbuffer.h>
 #include <rapidjson/writer.h>
 
-
-
-// We'll write to "configuration.json" in current working directory.
-// Replace the literal path below or change the function signature if you need a custom path.
 template<class... Data_Modules>
 std::optional<O::Configuration::Application::Write_Error>
 O::Configuration::Application::Write_As_JSON_File(

@@ -25,11 +25,6 @@ namespace O::Configuration::Module
 	 * std::optional<Error> Load_From_JSON(const rapidjson::Value& v);
 	 * static constexpr const char* Key() noexcept; // JSON key for this module
 	 * @endcode
-	 *
-	 * `Load_From_JSON` should return an engaged std::optional<Error> on
-	 * failure and std::nullopt on success. On success the builder should
-	 * populate its `data` member which callers obtain by dereferencing the
-	 * builder (operator*).
 	 */
 	template<class Derived, class Data, class Error>
 	struct JSON_Builder
@@ -40,8 +35,8 @@ namespace O::Configuration::Module
 		/**
 		 * @brief Invoke the concrete builder's Load_From_JSON implementation.
 		 *
-		 * This wrapper simply forwards to the Derived implementation so the
-		 * CRTP-based type has a consistent public surface.
+		 * From this function you should be able to parse all the needed infomration for your configuration.
+		 * "rapidjson::Value& v" is already inside the object from key returned by "Key()"
 		 *
 		 * @param v RapidJSON value to parse.
 		 * @return std::optional<Error> engaged on error, std::nullopt on success.
@@ -54,12 +49,11 @@ namespace O::Configuration::Module
 		/**
 		 * @brief Move-out the parsed Data object.
 		 *
-		 * Calling code can use `*builder` to obtain the parsed Data once
-		 * the `Load_From_JSON` call has succeeded.
+		 * Function used inside the Application Parser to move the data from the json builder to the application
 		 *
 		 * @note The returned Data is moved from the builder.
 		 */
-		Data operator*()
+		Data&& operator*()
 		{
 			return std::move(data);
 		}
@@ -67,8 +61,7 @@ namespace O::Configuration::Module
 		/**
 		 * @brief Return the JSON key used by this module.
 		 *
-		 * This helper delegates to `Derived::Key()`; module implementers
-		 * must provide that static function.
+		 * The value returned by Key must be the Key found inside the json file
 		 */
 		static constexpr const char* Key() noexcept
 		{

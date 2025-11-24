@@ -1,7 +1,7 @@
-C++ codding Guidlines
+C++ coding Guidlines
 =====================
 
-	this are C++ codding guidlines that should be followed while adding c++ code to the project
+	this are C++ coding guidlines that should be followed while adding c++ code to the project
 
 pointer
 -------
@@ -19,7 +19,7 @@ Naming
 comments
 --------
 
-	documentation about the function shoudld be written using
+	documentation about the function should be written using
 
 	.. code-block:: cpp
 

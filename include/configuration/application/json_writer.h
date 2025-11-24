@@ -28,9 +28,8 @@ namespace O::Configuration::Application
 	/**
 	 * @brief Write a container to a JSON file.
 	 *
-	 * Iterates the container's modules and invokes each module's Writer to
-	 * serialize its data. Returns std::nullopt on success or a Write_Error on
-	 * failure.
+	 * Iterates the container's modules and invokes each module's Writer to serialize its data. 
+	 * Returns std::nullopt on success or a Write_Error on failure.
 	 *
 	 * @tparam Data_Modules module data types in the container.
 	 * @param data the container to serialize.
@@ -45,7 +44,7 @@ namespace O::Configuration::Application
 	 *
 	 * Uses module writers obtained via Module::Traits to produce a JSON string.
 	 *
-	 * @tparam Data_Modules module data types in the container.
+	 * @tparam Data_Modules module data types in the final application container.
 	 * @param datas The container to serialize.
 	 * @return std::string The produced JSON document (UTF-8).
 	 */

@@ -64,8 +64,7 @@ Module Builder
 
 .. code-block:: cpp
 
-    struct WindowBuilder
-        : O::Configuration::Module::JSON_Builder<WindowBuilder, WindowData, WindowBuilder::Error>
+    struct WindowBuilder : O::Configuration::Module::JSON_Builder<WindowBuilder, WindowData, WindowBuilder::Error>
     {
         enum class Error {
             MISSING_WIDTH,

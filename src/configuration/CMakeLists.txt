@@ -2,7 +2,7 @@ add_library(configuration INTERFACE)
 
 target_include_directories(configuration
     INTERFACE
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 

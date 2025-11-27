@@ -57,19 +57,21 @@ namespace O
 			return *this;
 		}
 
-		// Construct from T (forwarding) - explicit to avoid accidental conversions.
-		template<typename U = T, typename = std::enable_if_t<std::is_constructible_v<T, U&&>>>
-		explicit Expected(U&& value) noexcept(std::is_nothrow_constructible_v<T, U&&>):
-			m_active(Active::None)
+		template <typename U>
+			requires std::constructible_from<T, U&&>
+		Expected(U&& value)
+			noexcept(std::is_nothrow_constructible_v<T, U&&>)
 		{
 			new (&m_storage.value) T(std::forward<U>(value));
 			m_active = Active::Value;
 		}
 
-		// Construct error from E using explicit tag
-		template<typename U = E, typename = std::enable_if_t<std::is_constructible_v<E, U&&>>>
-		explicit Expected(Error_Tag_t, U&& err) noexcept(std::is_nothrow_constructible_v<E, U&&>):
-			m_active(Active::None)
+		// Error ctor
+		template <typename U>
+			requires std::constructible_from<E, U&&> &&
+		(!std::constructible_from<T, U&&>) // avoid clash if both T and E accept U
+			Expected(U&& err)
+			noexcept(std::is_nothrow_constructible_v<E, U&&>)
 		{
 			new (&m_storage.error) E(std::forward<U>(err));
 			m_active = Active::Error;

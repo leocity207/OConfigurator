@@ -12,6 +12,11 @@
 namespace O
 {
 
+	/**
+	 * @brief Exception thrown when accessing the value/error of an empty Expected.
+	 *
+	 * Thin wrapper over std::runtime_error used by Value()/Error() accessors.
+	 */
 	struct bad_expected_access : std::runtime_error
 	{
 		using std::runtime_error::runtime_error;
@@ -22,8 +27,15 @@ namespace O
 	inline constexpr Error_Tag_t error_tag{};
 
 	/**
-	* @brief class to reprensent expected value on return
-	*/
+	 * @brief A simple "expected" type representing either a value (T) or an error (E).
+	 *
+	 * The type is move-only and stores either a value or an error in-place using a trivial union. Construction, destruction and moves are performed manually.
+	 *
+	 * @tparam T Value type (must not be a reference)
+	 * @tparam E Error type (must not be a reference)
+	 *
+	 * @note All non-trivial member functions are defined out-of-class in the accompanying header implementation file `expected.hpp`.
+	 */
 	template<class T, class E>
 	class Expected
 	{
@@ -35,128 +47,59 @@ namespace O
 		Expected(const Expected&) = delete;
 		Expected& operator=(const Expected&) = delete;
 
-		// Default - empty (neither value nor error)
-		constexpr Expected() noexcept : m_active(Active::None) {}
+		/** @name Construction / destruction */
+		/**@{*/
+		constexpr Expected() noexcept;
+		~Expected() noexcept;
+		Expected(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>);
+		Expected& operator=(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>);
+		/**@}*/
 
-		// Destructor
-		~Expected() noexcept { Destroy(); }
-
-		// Move constructor
-		Expected(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>) :
-			m_active(Active::None)
-		{
-			Move_From(std::move(other));
-		}
-
-		// Move assignment
-		Expected& operator=(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>)
-		{
-			if (this == &other) return *this;
-			Destroy();
-			Move_From(std::move(other));
-			return *this;
-		}
-
+		/** @name Value / Error construction helpers */
+		/**@{*/
 		template <typename U>
-			requires std::constructible_from<T, U&&>
-		Expected(U&& value)
-			noexcept(std::is_nothrow_constructible_v<T, U&&>)
-		{
-			new (&m_storage.value) T(std::forward<U>(value));
-			m_active = Active::Value;
-		}
-
-		// Error ctor
+		requires std::constructible_from<T, U&&>
+		Expected(U&& value) noexcept(std::is_nothrow_constructible_v<T, U&&>);
 		template <typename U>
-			requires std::constructible_from<E, U&&> &&
-		(!std::constructible_from<T, U&&>) // avoid clash if both T and E accept U
-			Expected(U&& err)
-			noexcept(std::is_nothrow_constructible_v<E, U&&>)
-		{
-			new (&m_storage.error) E(std::forward<U>(err));
-			m_active = Active::Error;
-		}
+		requires std::constructible_from<E, U&&> && (!std::constructible_from<T, U&&>)
+		Expected(U&& err) noexcept(std::is_nothrow_constructible_v<E, U&&>);
 
 		// In-place factories
 		template<typename... Args>
-		static Expected Make_Value(Args&&... args)
-		{
-			Expected out;
-			out.Emplace_Value(std::forward<Args>(args)...);
-			return out;
-		}
+		static Expected Make_Value(Args&&... args);
 
 		template<typename... Args>
-		static Expected Make_Error(Args&&... args)
-		{
-			Expected out;
-			out.Emplace_Error(std::forward<Args>(args)...);
-			return out;
-		}
+		static Expected Make_Error(Args&&... args);
+		/**@}*/
 
-		// Query
-		constexpr bool Has_Value() const noexcept { return m_active == Active::Value; }
-		constexpr bool Has_Error() const noexcept { return m_active == Active::Error; }
-		explicit constexpr operator bool() const noexcept { return Has_Value(); }
+		/** @name State queries */
+		/**@{*/
+		constexpr bool Has_Value() const noexcept;
+		constexpr bool Has_Error() const noexcept;
+		explicit constexpr operator bool() const noexcept;
+		/**@}*/
 
-		// Accessors (ref-qualified)
-		T& Value() &
-		{
-			if (!Has_Value()) throw bad_expected_access("no value");
-			return Value_Ptr();
-		}
-		const T& Value() const &
-		{
-			if (!Has_Value()) throw bad_expected_access("no value");
-			return Value_Ptr();
-		}
-		T&& Value() &&
-		{
-			if (!Has_Value()) throw bad_expected_access("no value");
-			return std::move(Value_Ptr());
-		}
+		/** @name Accessors (ref-qualified) */
+		/**@{*/
+		T& Value() &;
+		const T& Value() const &;
+		T&& Value() &&;
 
-		E& Error() &
-		{
-			if (!Has_Error()) throw bad_expected_access("no error");
-			return Error_Ptr();
-		}
+		E& Error() &;
+		const E& Error() const &;
+		E&& Error() &&;
+		/**@}*/
 
-		const E& Error() const &
-		{
-			if (!Has_Error()) throw bad_expected_access("no error");
-			return Error_Ptr();
-		}
-
-		E&& Error() &&
-		{
-			if (!Has_Error()) throw bad_expected_access("no error");
-			return std::move(Error_Ptr());
-		}
-
-		// Emplace
+		/** @name Emplace / modifiers */
+		/**@{*/
 		template<typename... Args>
-		void Emplace_Value(Args&&... args) {
-			Destroy();
-			new (&m_storage.value) T(std::forward<Args>(args)...);
-			m_active = Active::Value;
-		}
+		void Emplace_Value(Args&&... args);
 
 		template<typename... Args>
-		void Emplace_Error(Args&&... args) {
-			Destroy();
-			new (&m_storage.error) E(std::forward<Args>(args)...);
-			m_active = Active::Error;
-		}
+		void Emplace_Error(Args&&... args);
 
-		// Optional: swap (noexcept if underlying moves are noexcept)
-		void Swap(Expected& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>)
-		{
-			if (this == &other) return;
-			Expected tmp = std::move(other);
-			other = std::move(*this);
-			*this = std::move(tmp);
-		}
+		void Swap(Expected& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>);
+		/**@}*/
 
 	private:
 		enum class Active : unsigned char { None = 0, Value = 1, Error = 2 };
@@ -171,34 +114,21 @@ namespace O
 
 		Active m_active;
 
-		// helpers
-		void Destroy() noexcept
-		{
-			if (m_active == Active::Value)
-				m_storage.value.~T();
-			else if (m_active == Active::Error)
-				m_storage.error.~E();
-			m_active = Active::None;
-		}
+		/** @name Internal helpers */
+		/**@{*/
+		void Destroy() noexcept;
+		void Move_From(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>);
 
-		// move contents from other into this (leaves other empty)
-		void Move_From(Expected&& other) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_constructible_v<E>)
-		{
-			m_active = other.m_active;
-			if (other.m_active == Active::Value)
-				new (&m_storage.value) T(std::move(other.m_storage.value));
-			else if (other.m_active == Active::Error)
-				new (&m_storage.error) E(std::move(other.m_storage.error));
-			other.Destroy();
-		}
-
-		// pointer-like accessors
-		T& Value_Ptr() noexcept { return m_storage.value; }
-		const T& Value_Ptr() const noexcept { return m_storage.value; }
-		E& Error_Ptr() noexcept { return m_storage.error; }
-		const E& Error_Ptr() const noexcept { return m_storage.error; }
+		// pointer-like accessors (non-throwing)
+		T& Value_Ptr() noexcept;
+		const T& Value_Ptr() const noexcept;
+		E& Error_Ptr() noexcept;
+		const E& Error_Ptr() const noexcept;
+		/**@}*/
 	};
 
 } // namespace O
+
+#include "expected.hpp"
 
 #endif // INCLUDE_EXPECTED_H

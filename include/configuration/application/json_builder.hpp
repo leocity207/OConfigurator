@@ -12,10 +12,10 @@
 #include "json_builder.h"
 
 // MODULE
-#include <configuration/module/traits.h>
+#include "configuration/module/traits.h"
 
 // UTILS
-#include <utils/tuple_helper.h>
+#include "utils/tuple_helper.h"
 
 // RAPIDJSON
 #include <rapidjson/document.h>

@@ -15,17 +15,12 @@ directly.
 
 Expected (O::Expected)
 ----------------------
-Overview
-^^^^^^^^
-:code:`O::Expected<T, E>` is a tiny alternative to ``std::expected`` intended
-for simple error-handling without exceptions.
 
-It stores either:
-
-* a **value** of type ``T``  
-* or an **error** of type ``E``
-
-Only one of them is active at a time. The type does not use dynamic memory.
+.. doxygenclass:: O::Expected
+	:members:
+	:protected-members:
+	:private-members:
+	:undoc-members:
 
 Basic Usage
 ^^^^^^^^^^^
@@ -57,8 +52,8 @@ Inspect an error:
         std::string msg = bad.Error();
     }
 
-Moving values
-^^^^^^^^^^^^^
+Moving values:
+
 ``Value()`` and ``Error()`` are available in ``&`` and ``&&`` overloads, so you
 can efficiently move the stored object:
 
@@ -66,14 +61,6 @@ can efficiently move the stored object:
 
     int v = std::move(good).Value();
 
-
-Why Expected?
-^^^^^^^^^^^^^
-It is primarily used for:
-
-* **Configuration parsing**, where a module may produce a structured error.  
-* **Replacing exceptions** in low-level code where exceptions are not desired.  
-* **Aggregating application-level errors** (such as JSON parser errors).
 
 
 Tuple Helper (O::For_Each_In_Tuple)

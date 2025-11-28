@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3] - 2025-11-26
+
+### Fixed
+
+* `Utils`: Reworked Epected class for in place construction
+* `Cmake`: Changed include path inside project that didn't worked since we use interface
+  
 ## [0.0.2] - 2025-11-26
 
 ### Fixed

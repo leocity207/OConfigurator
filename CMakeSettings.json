@@ -29,7 +29,7 @@
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "",
+      "cmakeCommandArgs": "-DBUILD_TESTS=ON -DBUILD_DOC=ON",
       "ctestCommandArgs": ""
     },
     {
@@ -39,7 +39,7 @@
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": ""
+      "cmakeCommandArgs": "-DBUILD_TESTS=ON -DBUILD_DOC=ON"
     },
     {
       "name": "arm64-Debug",
@@ -48,7 +48,7 @@
       "inheritEnvironments": [ "msvc_arm64" ],
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "",
+      "cmakeCommandArgs": "-DBUILD_TESTS=ON -DBUILD_DOC=ON",
       "ctestCommandArgs": ""
     },
     {
@@ -58,7 +58,7 @@
       "inheritEnvironments": [ "msvc_arm64" ],
       "buildRoot": "${projectDir}\\out\\build\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "",
+      "cmakeCommandArgs": "-DBUILD_TESTS=ON -DBUILD_DOC=ON",
       "ctestCommandArgs": ""
     }
   ]

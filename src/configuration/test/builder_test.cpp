@@ -4,7 +4,7 @@
 #include "test_structure_builder.h"
 #include "test_structure_trait.h"
 
-#include "include/configuration/application/json_builder.h"
+#include "configuration/application/json_builder.h"
 
 #include <gtest/gtest.h>
 #include <filesystem>

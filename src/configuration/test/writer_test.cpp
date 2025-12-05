@@ -3,8 +3,8 @@
 #include "test_structure_builder.h"
 #include "test_structure_trait.h"
 #include "test_structure_Writer.h"   // writers you added
-#include "include/configuration/application/json_writer.h"
-#include "include/configuration/application/json_builder.h" // for round-trip tests
+#include "configuration/application/json_writer.h"
+#include "configuration/application/json_builder.h" // for round-trip tests
 
 #include <gtest/gtest.h>
 #include <rapidjson/document.h>
